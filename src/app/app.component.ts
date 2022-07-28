@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'todo-list-angular';
 
-  allTasks: any[] = [];
+  allTasks: taskInterface[] = [];
 
-  addTodoForm: any = {
-    taskName: 'Учить Angular',
+  addTodoForm: taskInterface = {
+    taskName: '',
     isDone: false,
   };
 
@@ -20,4 +20,9 @@ export class AppComponent {
     this.addTodoForm.taskName = '';
   }
   render() {}
+}
+
+interface taskInterface {
+  taskName: string;
+  isDone: boolean;
 }
