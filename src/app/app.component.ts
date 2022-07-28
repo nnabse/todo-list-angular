@@ -17,7 +17,6 @@ export class AppComponent {
 
   printForm() {
     this.allTasks.push({ taskName: this.addTodoForm.taskName, isDone: false });
-    console.log(this.allTasks);
     this.addTodoForm.taskName = '';
   }
   render() {}
