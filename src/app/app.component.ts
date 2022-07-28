@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'todo-list-angular';
 
-  allTasks: any[] = [{ taskName: 'Учить Angular', isDone: false }];
+  allTasks: any[] = [];
 
   addTodoForm: any = {
     taskName: 'Учить Angular',
