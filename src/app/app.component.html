@@ -10,15 +10,19 @@
         type="text"
         name="task_name"
       />
-      <button (click)="printForm()">add</button>
+      <button (click)="addTask()">add</button>
     </div>
   </form>
   <div class="task_list">
-    <div *ngFor="let item of allTasks" class="task">
+    <div *ngFor="let item of allTasks" id="`task_{{ item.id }}`" class="task">
       <div class="task_name">{{ item.taskName }}</div>
       <div class="icons">
         <img src="../assets/svg/edit.svg" alt="" />
-        <img src="../assets/svg/delete.svg" alt="" />
+        <img
+          src="../assets/svg/delete.svg"
+          (click)="removeTask(item.id)"
+          alt=""
+        />
       </div>
     </div>
   </div>
