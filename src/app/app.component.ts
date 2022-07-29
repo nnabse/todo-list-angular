@@ -31,7 +31,6 @@ export class AppComponent {
     this.allTasks.forEach((elem, index) => {
       if (elem.id === itemId) this.allTasks.splice(index, 1);
     });
-    console.log(this.allTasks);
   }
   render() {}
 }
