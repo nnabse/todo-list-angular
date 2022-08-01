@@ -1,0 +1,77 @@
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.title h3 {
+  font-size: 1.5rem;
+  color: #1d1d1d;
+  font-weight: lighter;
+}
+
+.input input {
+  width: 15vw;
+  height: 3.5vh;
+
+  margin-right: 5px;
+
+  background-color: #f1c35700;
+
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.input input:focus {
+  outline: 1px solid black;
+}
+
+.input input::placeholder {
+  color: #1d1d1d40;
+}
+
+.input button {
+  width: 5vw;
+  height: 3.95vh;
+
+  background-color: #f1c35700;
+
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.input button:hover {
+  background-color: rgba(10, 10, 10, 0.2);
+  transition: 0.4s;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 15px;
+
+  width: 20.5vw;
+  height: 3.5vh;
+
+  border: 1px solid #00000061;
+  border-radius: 2px;
+
+  background-color: none;
+  color: #1d1d1d;
+  margin-bottom: 15px;
+}
+
+.icons img {
+  margin-right: 13%;
+  /* width: 35%; */
+}
+
+.task input {
+  margin-left: 5%;
+}
+
+.todoCheckbox{
+  margin-left: 5%;
+}
+

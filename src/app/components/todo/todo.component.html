@@ -1,0 +1,60 @@
+<div class="title">
+  <h3>Todo App</h3>
+</div>
+<form>
+  <div class="input">
+    <input
+      [(ngModel)]="addTodoForm.name"
+      placeholder="task name here"
+      type="text"
+      name="task_name"
+    />
+    <button (click)="createTodo()">add</button>
+  </div>
+</form>
+<div class="task_list">
+  <div *ngFor="let todo of TodoList" class="task" id="task_{{ todo.id }}">
+    <div class="todoCheckbox">
+      <input (click)="doneTodo(todo.id)" type="checkbox" />
+    </div>
+    <div
+      *ngIf="!todo.isEditing"
+      [ngStyle]="{ 'text-decoration': todo.isDone ? 'line-through' : 'none' }"
+      class="task_name"
+    >
+      {{ todo.name }}
+    </div>
+    <input
+      *ngIf="todo.isEditing"
+      [(ngModel)]="renameTodoForm.newName"
+      type="text"
+      value="{{ todo.name }}"
+    />
+    <div class="icons">
+      <img
+        [ngStyle]="{ width: !todo.isDone ? '35%' : '70%' }"
+        *ngIf="!todo.isEditing && !todo.isDone"
+        (click)="todoEditorOpen(todo.id)"
+        src="../../../assets/svg/edit.svg"
+      />
+      <img
+        [ngStyle]="{ width: !todo.isDone ? '35%' : '70%' }"
+        *ngIf="todo.isEditing"
+        (click)="todoEditorClose(todo.id)"
+        src="../../../assets/svg/cancel.svg"
+      />
+      <img
+        [ngStyle]="{ width: !todo.isDone ? '35%' : '70%' }"
+        *ngIf="todo.isEditing"
+        (click)="renameTodo(todo.id)"
+        src="../../../assets/svg/done.svg"
+      />
+      <img
+        [ngStyle]="{ width: !todo.isDone ? '35%' : '70%' }"
+        *ngIf="!todo.isEditing"
+        (click)="deleteTodo(todo.id)"
+        src="../../../assets/svg/delete.svg"
+      />
+    </div>
+  </div>
+</div>
