@@ -18,7 +18,7 @@ export class TodoComponent implements OnInit {
 
   addTodoForm: ITodo = {
     id: this.todoId,
-    name: 'Task name',
+    name: '',
     isDone: false,
     isEditing: false,
   };
