@@ -1,91 +1,79 @@
-import { Component, OnInit } from '@angular/core';
-import { ITodo } from 'src/app/models/Todo';
+import { Component } from '@angular/core';
+import { Todo } from 'src/app/models/Todo';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css'],
 })
-export class TodoComponent implements OnInit {
-  constructor() {}
+export class TodoComponent {
+  public TodoList: Todo[] = [];
 
-  ngOnInit(): void {}
+  private todoId: number = 0;
+  private isEditorOpened: boolean = false;
 
-  TodoList: ITodo[] = [];
-
-  todoId: number = 0;
-  isEditorOpened: boolean = false;
-
-  addTodoForm: ITodo = {
+  public addTodoForm: Todo = {
     id: this.todoId,
     name: '',
     isDone: false,
     isEditing: false,
   };
 
-  renameTodoForm = {
+  public renameTodoForm = {
     newName: '',
   };
 
-  createTodo() {
-    if (this.addTodoForm.name.trim() === '') {
-      this.addTodoForm.name = '';
-      return;
-    } else {
+  constructor() {}
+
+  editorToggle(id: number, flag: boolean): void {
+    this.TodoList[id].isEditing = flag;
+    this.isEditorOpened = flag;
+    this.renameTodoForm.newName = this.TodoList[id].name;
+  }
+
+  createTodo(): void {
+    if (this.addTodoForm.name.trim() !== '') {
       this.TodoList.push({
         id: this.todoId++,
         name: this.addTodoForm.name,
         isDone: false,
         isEditing: false,
       });
-      this.addTodoForm.name = '';
     }
+    this.addTodoForm.name = '';
   }
 
-  doneTodo(id: number) {
-    this.TodoList.forEach((elem, index) => {
+  doneTodo(id: number): void {
+    this.TodoList.map((elem, index) => {
       if (elem.id === id) {
         this.TodoList[index].isDone = !this.TodoList[index].isDone;
-        this.TodoList[index].isEditing = false;
-        this.isEditorOpened = false;
+        this.editorToggle(index, false);
       }
     });
   }
 
-  todoEditorOpen(id: number) {
+  todoEditorOpen(id: number): void {
     if (this.isEditorOpened) return;
-    else {
-      this.TodoList.forEach((elem, index) => {
-        if (elem.id === id) {
-          this.TodoList[index].isEditing = true;
-          this.isEditorOpened = true;
-          this.renameTodoForm.newName = this.TodoList[index].name;
-        }
-      });
-    }
-  }
-
-  todoEditorClose(id: number) {
-    this.TodoList.forEach((elem, index) => {
-      if (elem.id === id) {
-        this.TodoList[index].isEditing = false;
-        this.isEditorOpened = false;
-        this.renameTodoForm.newName = this.TodoList[index].name;
-      }
+    this.TodoList.map((elem, index) => {
+      if (elem.id === id) this.editorToggle(index, true);
     });
   }
 
-  renameTodo(id: number) {
-    this.TodoList.forEach((elem, index) => {
+  todoEditorClose(id: number): void {
+    this.TodoList.map((elem, index) => {
+      if (elem.id === id) this.editorToggle(index, false);
+    });
+  }
+
+  renameTodo(id: number): void {
+    this.TodoList.map((elem, index) => {
       if (elem.id === id)
         this.TodoList[index].name = this.renameTodoForm.newName;
     });
     this.todoEditorClose(id);
   }
 
-  deleteTodo(id: number) {
-    this.TodoList.forEach((elem, index) => {
-      if (elem.id === id) this.TodoList.splice(index, 1);
-    });
+  deleteTodo(id: number): void {
+    this.TodoList = this.TodoList.filter((elem) => elem.id !== id);
   }
 }

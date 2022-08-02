@@ -5,17 +5,18 @@
 
 .title h3 {
   font-size: 1.5rem;
-  color: #1d1d1d;
+  color: var(--dark-color);
   font-weight: lighter;
 }
 
 .input input {
-  width: 15vw;
-  height: 3.5vh;
+  width: 60%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   margin-right: 5px;
 
-  background-color: #f1c35700;
+  background-color: var(--dark-color-max-transparent);
 
   border: 1px solid black;
   border-radius: 2px;
@@ -26,14 +27,15 @@
 }
 
 .input input::placeholder {
-  color: #1d1d1d40;
+  color: var(--dark-color-min-transparent);
 }
 
 .input button {
-  width: 5vw;
-  height: 3.95vh;
+  width: 30%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
-  background-color: #f1c35700;
+  background-color: var(--dark-color-max-transparent);
 
   border: 1px solid black;
   border-radius: 2px;
@@ -44,6 +46,10 @@
   transition: 0.4s;
 }
 
+.text-line-through {
+  text-decoration: line-through;
+}
+
 .task {
   display: flex;
   align-items: center;
@@ -51,26 +57,43 @@
 
   margin-top: 15px;
 
-  width: 20.5vw;
-  height: 3.5vh;
+  width: 95%;
 
-  border: 1px solid #00000061;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+  border: 1px solid var(--dark-color);
   border-radius: 2px;
 
   background-color: none;
-  color: #1d1d1d;
+  color: var(--dark-color);
   margin-bottom: 15px;
 }
 
-.icons img {
-  margin-right: 13%;
-}
-
 .task input {
-  margin-left: 5%;
+  width: 50%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: var(--dark-color-max-transparent);
+  border: 1px solid var(--dark-color);
 }
 
-.todoCheckbox{
-  margin-left: 5%;
+.task input:focus {
+  outline: none;
 }
 
+.task_small {
+  width: 35%;
+}
+
+.task_big {
+  width: 70%;
+}
+
+.todoCheckbox input {
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+}

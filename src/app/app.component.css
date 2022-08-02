@@ -1,11 +1,11 @@
 .main {
-  background: linear-gradient(135deg, rgb(129, 231, 214) 30%, rgb(128, 0, 255));
   display: flex;
 
-  margin-top: 10%;
-  margin-bottom: 5%;
+  margin-top: 15%;
 
   border-radius: 20px;
+
+  background: linear-gradient(135deg, lightblue 30%, pink);
   color: white;
 
   width: 35vw;
@@ -17,3 +17,15 @@
   overflow: visible auto;
 }
 
+@media screen and (max-width: 820px) {
+  .main {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main {
+    width: 90vw;
+    height: 80vh;
+  }
+}
