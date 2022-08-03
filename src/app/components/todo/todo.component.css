@@ -1,0 +1,99 @@
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.title h3 {
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  font-weight: lighter;
+}
+
+.input input {
+  width: 60%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  margin-right: 5px;
+
+  background-color: var(--dark-color-max-transparent);
+
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.input input:focus {
+  outline: 1px solid black;
+}
+
+.input input::placeholder {
+  color: var(--dark-color-min-transparent);
+}
+
+.input button {
+  width: 30%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  background-color: var(--dark-color-max-transparent);
+
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.input button:hover {
+  background-color: rgba(10, 10, 10, 0.2);
+  transition: 0.4s;
+}
+
+.text-line-through {
+  text-decoration: line-through;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 15px;
+
+  width: 95%;
+
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+  border: 1px solid var(--dark-color);
+  border-radius: 2px;
+
+  background-color: none;
+  color: var(--dark-color);
+  margin-bottom: 15px;
+}
+
+.task input {
+  width: 50%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: var(--dark-color-max-transparent);
+  border: 1px solid var(--dark-color);
+}
+
+.task input:focus {
+  outline: none;
+}
+
+.task_small {
+  width: 35%;
+}
+
+.task_big {
+  width: 70%;
+}
+
+.todoCheckbox input {
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+}
