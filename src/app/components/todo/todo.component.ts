@@ -1,4 +1,4 @@
-import { Component, isDevMode, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/models/Todo';
 
 import { TodoService } from 'src/app/services/todo.service';
@@ -9,8 +9,6 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-  public localTodoList: Todo[] = this.todoService.todoList;
-
   private todoId: number = 0;
   private isEditorOpened: boolean = false;
 
