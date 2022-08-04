@@ -5,6 +5,6 @@ export interface Todo {
   isEditing: boolean;
 }
 
-export interface Params {
+export interface QueryParams {
   [_id: string]: number;
 }
