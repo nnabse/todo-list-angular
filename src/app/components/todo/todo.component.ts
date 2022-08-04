@@ -19,7 +19,7 @@ export class TodoComponent implements OnInit {
   constructor(public todoService: TodoService) {}
 
   ngOnInit(): void {
-    this.todoService.todoList.subscribe((data) => {
+    this.todoService.todoList$.subscribe((data) => {
       this.localTodoList = data;
     });
     this.todoService.getAllTasks();
@@ -27,7 +27,7 @@ export class TodoComponent implements OnInit {
 
   editorToggle(id: number, flag: boolean): void {
     this.localTodoList[id].isEditing = flag;
-    this.todoService.todoList.next(this.localTodoList);
+    this.todoService.todoList$.next(this.localTodoList);
     this.isEditorOpened = flag;
     this.newName = this.localTodoList[id].name;
   }
@@ -44,7 +44,7 @@ export class TodoComponent implements OnInit {
       name: todo.name,
       isDone: !todo.isDone,
     });
-    this.toDoEditorToggle(todo._id, false)
+    this.toDoEditorToggle(todo._id, false);
     this.isEditorOpened = false;
   }
 

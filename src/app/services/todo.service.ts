@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Todo } from '../models/Todo';
 
 import {
@@ -14,8 +14,8 @@ import { BehaviorSubject, catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class TodoService {
-  public todoList: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
+export class TodoService implements OnDestroy {
+  public todoList$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
 
   constructor(private httpService: HttpService) {}
 
@@ -23,7 +23,7 @@ export class TodoService {
     this.httpService
       .get<Todo[]>(GET_ALL_TASKS_LINK)
       .pipe(catchError((err) => throwError(() => err)))
-      .subscribe((resp) => this.todoList.next(resp));
+      .subscribe((resp) => this.todoList$.next(resp));
   }
 
   createTask(body: object): void {
@@ -31,7 +31,7 @@ export class TodoService {
       .create<Todo>(CREATE_TASK_LINK, body)
       .pipe(catchError((err) => throwError(() => err)))
       .subscribe((resp) => {
-        this.todoList.next([...this.todoList.value, resp]);
+        this.todoList$.next([...this.todoList$.value, resp]);
       });
   }
 
@@ -40,8 +40,8 @@ export class TodoService {
       .delete(DELETE_TASK_LINK, { _id })
       .pipe(catchError((err) => throwError(() => err)))
       .subscribe(() => {
-        this.todoList.next(
-          this.todoList.value.filter((elem) => _id !== elem._id)
+        this.todoList$.next(
+          this.todoList$.value.filter((elem) => _id !== elem._id)
         );
       });
   }
@@ -51,8 +51,8 @@ export class TodoService {
       .update(UPDATE_TASK_LINK, { _id }, body)
       .pipe(catchError((err) => throwError(() => err)))
       .subscribe(() => {
-        this.todoList.next(
-          this.todoList.value.map((elem) => {
+        this.todoList$.next(
+          this.todoList$.value.map((elem) => {
             if (_id === elem._id) {
               return { ...elem, ...body };
             }
@@ -60,5 +60,8 @@ export class TodoService {
           })
         );
       });
+  }
+  ngOnDestroy(): void {
+    this.todoList$.unsubscribe();
   }
 }
