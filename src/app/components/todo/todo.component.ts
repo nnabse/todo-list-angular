@@ -44,6 +44,7 @@ export class TodoComponent implements OnInit {
       name: todo.name,
       isDone: !todo.isDone,
     });
+    this.toDoEditorToggle(todo._id, false)
     this.isEditorOpened = false;
   }
 
