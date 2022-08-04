@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Todo } from '../models/Todo';
 
 import {
@@ -14,7 +14,7 @@ import { BehaviorSubject, catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class TodoService implements OnDestroy {
+export class TodoService {
   public todoList$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
 
   constructor(private httpService: HttpService) {}
@@ -60,8 +60,5 @@ export class TodoService implements OnDestroy {
           })
         );
       });
-  }
-  ngOnDestroy(): void {
-    this.todoList$.unsubscribe();
   }
 }

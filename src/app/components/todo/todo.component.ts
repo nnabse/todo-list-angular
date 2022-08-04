@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Todo } from 'src/app/models/Todo';
 
 import { TodoService } from 'src/app/services/todo.service';
@@ -8,7 +8,7 @@ import { TodoService } from 'src/app/services/todo.service';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css'],
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit, OnDestroy {
   public localTodoList: Todo[] = [];
 
   public name = '';
@@ -68,5 +68,8 @@ export class TodoComponent implements OnInit {
 
   deleteTodo(id: number): void {
     this.todoService.deleteTask(id);
+  }
+  ngOnDestroy(): void {
+    this.todoService.todoList$.unsubscribe();
   }
 }
