@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/Todo';
 
 import { TodoService } from 'src/app/services/todo.service';
@@ -11,6 +12,8 @@ import { TodoService } from 'src/app/services/todo.service';
 export class TodoComponent implements OnInit, OnDestroy {
   public localTodoList: Todo[] = [];
 
+  private subscription: Subscription | null = null;
+
   public name = '';
   public newName = '';
 
@@ -19,7 +22,7 @@ export class TodoComponent implements OnInit, OnDestroy {
   constructor(public todoService: TodoService) {}
 
   ngOnInit(): void {
-    this.todoService.todoList$.subscribe((data) => {
+    this.subscription = this.todoService.todoList$.subscribe((data) => {
       this.localTodoList = data;
     });
     this.todoService.getAllTasks();
@@ -70,6 +73,6 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.todoService.deleteTask(id);
   }
   ngOnDestroy(): void {
-    this.todoService.todoList$.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }
