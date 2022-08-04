@@ -54,7 +54,7 @@ export class TodoService {
         this.todoList.next(
           this.todoList.value.map((elem) => {
             if (_id === elem._id) {
-              return (elem = { ...elem, ...body });
+              return { ...elem, ...body };
             }
             return elem;
           })

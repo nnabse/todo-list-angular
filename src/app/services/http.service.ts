@@ -19,14 +19,10 @@ export class HttpService {
   }
 
   delete<T>(link: string, params: Params): Observable<T> {
-    return this.http.delete<T>(`${GLOBAL_LINK}${link}`, {
-      params,
-    });
+    return this.http.delete<T>(`${GLOBAL_LINK}${link}`, { params });
   }
 
   update<T>(link: string, params: Params, body: object): Observable<T> {
-    return this.http.patch<T>(`${GLOBAL_LINK}${link}`, body, {
-      params,
-    });
+    return this.http.patch<T>(`${GLOBAL_LINK}${link}`, body, { params });
   }
 }

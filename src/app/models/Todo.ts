@@ -6,9 +6,5 @@ export interface Todo {
 }
 
 export interface Params {
-  [p: string]:
-    | string
-    | number
-    | boolean
-    | readonly (string | number | boolean)[];
+  [_id: string]: number;
 }
