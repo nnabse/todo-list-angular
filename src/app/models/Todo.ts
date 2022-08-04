@@ -5,15 +5,10 @@ export interface Todo {
   isEditing: boolean;
 }
 
-export interface DeleteResponse {
-  acknowledged: boolean;
-  deletedCount: number;
-}
-
-export interface UpdateResponse {
-  acknowledged: boolean;
-  modifiedCount: number;
-  upsertedId?: null;
-  upsertedCount: number;
-  matchedCount: number;
+export interface Params {
+  [p: string]:
+    | string
+    | number
+    | boolean
+    | readonly (string | number | boolean)[];
 }

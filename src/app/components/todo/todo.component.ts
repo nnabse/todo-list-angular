@@ -9,37 +9,34 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-  private todoId: number = 0;
+  public localTodoList: Todo[] = [];
+
+  public name = '';
+  public newName = '';
+
   private isEditorOpened: boolean = false;
-
-  public addTodoForm: Todo = {
-    _id: this.todoId,
-    name: '',
-    isDone: false,
-    isEditing: false,
-  };
-
-  public renameTodoForm = {
-    newName: '',
-  };
 
   constructor(public todoService: TodoService) {}
 
   ngOnInit(): void {
+    this.todoService.todoList.subscribe((data) => {
+      this.localTodoList = data;
+    });
     this.todoService.getAllTasks();
   }
 
   editorToggle(id: number, flag: boolean): void {
-    this.todoService.todoList[id].isEditing = flag;
+    this.localTodoList[id].isEditing = flag;
+    this.todoService.todoList.next(this.localTodoList);
     this.isEditorOpened = flag;
-    this.renameTodoForm.newName = this.todoService.todoList[id].name;
+    this.newName = this.localTodoList[id].name;
   }
 
   createTodo(): void {
-    if (this.addTodoForm.name.trim() !== '') {
-      this.todoService.createTask({ name: this.addTodoForm.name });
+    if (this.name.trim() !== '') {
+      this.todoService.createTask({ name: this.name });
     }
-    this.addTodoForm.name = '';
+    this.name = '';
   }
 
   doneTodo(todo: Todo): void {
@@ -47,27 +44,24 @@ export class TodoComponent implements OnInit {
       name: todo.name,
       isDone: !todo.isDone,
     });
+    this.isEditorOpened = false;
   }
 
-  todoEditorOpen(id: number): void {
-    if (this.isEditorOpened) return;
-    this.todoService.todoList.map((elem, index) => {
-      if (elem._id === id) this.editorToggle(index, true);
-    });
-  }
-
-  todoEditorClose(id: number): void {
-    this.todoService.todoList.map((elem, index) => {
-      if (elem._id === id) this.editorToggle(index, false);
+  toDoEditorToggle(id: number, flag: boolean): void {
+    if (this.isEditorOpened && flag) return;
+    this.localTodoList.map((elem, index) => {
+      if (elem._id === id) this.editorToggle(index, flag);
     });
   }
 
   renameTodo(todo: Todo): void {
-    if (this.renameTodoForm.newName.trim() !== '') {
+    if (this.newName.trim() !== '') {
       this.todoService.updateTask(todo._id, {
-        name: this.renameTodoForm.newName.trim(),
+        name: this.newName.trim(),
         isDone: todo.isDone,
+        isEditing: false,
       });
+      this.isEditorOpened = false;
     }
   }
 

@@ -3,7 +3,7 @@
 </div>
 <div class="input">
   <input
-    [(ngModel)]="addTodoForm.name"
+    [(ngModel)]="name"
     placeholder="task name here"
     type="text"
     name="task_name"
@@ -12,8 +12,8 @@
 </div>
 <div class="task_list">
   <div
-    *ngFor="let todo of todoService.todoList"
-    class="{{ todo.isEditing ? 'task editing' : 'task' }}"
+    *ngFor="let todo of localTodoList"
+    [ngClass]="todo.isEditing ? 'task editing' : 'task'"
     id="task_{{ todo._id }}"
   >
     <div class="todoCheckbox">
@@ -27,7 +27,7 @@
     </div>
     <input
       *ngIf="todo.isEditing"
-      [(ngModel)]="renameTodoForm.newName"
+      [(ngModel)]="newName"
       type="text"
       value="{{ todo.name }}"
     />
@@ -35,13 +35,13 @@
       <img
         [ngClass]="todo.isDone ? 'task_big' : 'task_small'"
         *ngIf="!todo.isEditing && !todo.isDone"
-        (click)="todoEditorOpen(todo._id)"
+        (click)="toDoEditorToggle(todo._id, true)"
         src="assets/svg/edit.svg"
       />
       <img
         [ngClass]="todo.isDone ? 'task_big' : 'task_small'"
         *ngIf="todo.isEditing"
-        (click)="todoEditorClose(todo._id)"
+        (click)="toDoEditorToggle(todo._id, false)"
         src="assets/svg/cancel.svg"
       />
       <img
