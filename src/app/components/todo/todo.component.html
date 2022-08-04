@@ -3,7 +3,7 @@
 </div>
 <div class="input">
   <input
-    [(ngModel)]="addTodoForm.name"
+    [(ngModel)]="name"
     placeholder="task name here"
     type="text"
     name="task_name"
@@ -12,12 +12,12 @@
 </div>
 <div class="task_list">
   <div
-    *ngFor="let todo of TodoList"
-    class="{{ todo.isEditing ? 'task editing' : 'task' }}"
-    id="task_{{ todo.id }}"
+    *ngFor="let todo of localTodoList; let i = index"
+    [ngClass]="todo.isEditing ? 'task editing' : 'task'"
+    id="task_{{ i }}"
   >
     <div class="todoCheckbox">
-      <input (click)="doneTodo(todo.id)" type="checkbox" />
+      <input (click)="doneTodo(todo)" type="checkbox" [checked]="todo.isDone" />
     </div>
     <div
       *ngIf="!todo.isEditing"
@@ -27,7 +27,7 @@
     </div>
     <input
       *ngIf="todo.isEditing"
-      [(ngModel)]="renameTodoForm.newName"
+      [(ngModel)]="newName"
       type="text"
       value="{{ todo.name }}"
     />
@@ -35,25 +35,25 @@
       <img
         [ngClass]="todo.isDone ? 'task_big' : 'task_small'"
         *ngIf="!todo.isEditing && !todo.isDone"
-        (click)="todoEditorOpen(todo.id)"
+        (click)="toDoEditorToggle(todo._id, true)"
         src="assets/svg/edit.svg"
       />
       <img
         [ngClass]="todo.isDone ? 'task_big' : 'task_small'"
         *ngIf="todo.isEditing"
-        (click)="todoEditorClose(todo.id)"
+        (click)="toDoEditorToggle(todo._id, false)"
         src="assets/svg/cancel.svg"
       />
       <img
         [ngClass]="todo.isDone ? 'task_big' : 'task_small'"
         *ngIf="todo.isEditing"
-        (click)="renameTodo(todo.id)"
+        (click)="renameTodo(todo)"
         src="assets/svg/done.svg"
       />
       <img
         [ngClass]="todo.isDone ? 'task_big' : 'task_small'"
         *ngIf="!todo.isEditing"
-        (click)="deleteTodo(todo.id)"
+        (click)="deleteTodo(todo._id)"
         src="assets/svg/delete.svg"
       />
     </div>
